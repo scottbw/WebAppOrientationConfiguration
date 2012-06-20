@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Web Application Orientation Configuration</title>
+    <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
+    <script src='http://dev.w3.org/2009/dap/ReSpec.js/js/respec.js' class='remove'></script>
+    <script class='remove'>
+      var respecConfig = {
+          // document info
+          subtitle:             "Configuration semantics for describing the preferred orientations of web applications",
+          specStatus:           "unofficial",
+          shortName:            "webapps-orientation",
+          copyrightStart:       "2012",
+          previousPublishDate:  "2012-06-20",
+          previousMaturity:     "unofficial",
+          // lcEnd: ...
+          extraCSS:             ["http://dev.w3.org/2009/dap/ReSpec.js/css/respec.css"],
+          inlineCSS:            true,
+          // editors
+          editors:  [
+              { name: "Scott Wilson",
+                company: "JISC", companyURL: "http://jisc.ac.uk/" }
+          ],
+          // WG
+          wg:           "Native Webapps Community Group",
+          wgURI:        "http://www.w3.org/2008/webapps/",
+          wgPublicList: "public-native-webapps",
+          wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/42538/status",
+      };
+
+      function hilight(r, content) {
+        return '<em>' +content+ '</em>' ;
+      }
+
+      function fixSchema(r, content) {
+        return r._esc(content);
+      }
+    </script>
+  </head>
+  <body>
+    <section id='abstract'>
+      This document specifies a configuration property to describe the preferred view orientations of web applications.
+    </section>
+    
+        <div id="definitions" class="section">
+    
+    <section>
+      <h2>Introduction</h2>
+      <p>A Web Application may only be designed to work in a specific orientation, or it may work in any orientation,
+    but the Web Application author would prefer the application to start using a specific orientation. A Web Application configuration 
+    document, for example a Widget configuration document or WebApp Manifest,  may use the orientation configuration property to specify their preferred behaviour.
+      </p>
+      
+      <p>
+        See also [[CSS Device Adaptation]] and CSS Media Queries [[MEDIAQ]]
+      </p>
+      </section>
+      
+      <section>
+<h2>Definitions</h2>
+      <dl>
+        <dt><dfn id="dfn-media-feature">Media feature</dfn></dt>
+        <dd>
+          The term <a href="http://www.w3.org/TR/css3-mediaqueries/#media1">media feature</a> is defined in 
+          [<cite><a class="bibref" rel="biblioentry" href="#bib-MEDIAQ">MEDIAQ</a></cite>].
+        </dd>
+        <dt><dfn id="dfn-web-application">Web application</dfn></dt>
+        <dd>
+          A Web application is an application built and shipped using Web technology that may be running
+          inside of a browser, as a <a>widget</a>, or in another type of container designed for this
+          purpose.
+        </dd>
+        <dt><dfn id="dfn-widgets">Widgets</dfn></dt>
+        <dd>
+          The term <a href="http://www.w3.org/TR/widgets/#widget">widget</a> is defined in [[WIDGETS]].
+        </dd>
+      </dl>
+    </section>
+
+      
+      <section>
+        <h2>The <code><dfn>orientation</dfn></code> configuration property</h2>
+        
+        <p>
+          <em>Name:</em> orientation<br>
+          <em>Initial value:</em> <code>auto</code><br>
+        </p>
+        
+        <p>
+        A list denoting the orientations supported by the Web Application, in order of preferred starting orientation.</p>
+        
+        <p>This property is used to request that a document is displayed in portrait or landscape mode. For a UA/device where 
+        the orientation is changed upon tilting the device, an author can use this property to inhibit the orientation change.</p>
+        
+         <p> The orientation configuration property accepts the following enumerated values: 
+        </p>
+                
+        <dl>
+        <dt><dfn>'<code>portrait</code>'</dfn></dt><dd> the Web Application should be locked to portrait presentation.</dd>
+        
+        <dt><dfn>'<code>landscape</code>'</dfn></dt><dd> the Web Application should be locked to landscape presentation.</dd>
+        
+        <dt><dfn>'<code>portrait landscape</code>'</dfn></dt><dd> the UA should enable both portrait and landscape orientation, but on start the presentation should be in portrait orientation.</dd>        
+
+        <dt><dfn>'<code>landscape portrait</code>'</dfn></dt><dd> the UA should enable both portrait and landscape orientations, but on start the presentation should be in landscape orientation.</dd>
+
+        <dt><dfn>'<code>auto</code>'</dfn></dt><dd>The UA automatically chooses the orientation based on the device's normal mode of operation. The UA may choose to change the orientation of the presentation when the device is tilted.</dd>
+
+        </dl>
+        
+        <p>Note: <em>portrait<em>, <em>landscape</em> and <em>auto</em> behave in the same fashion as the orientation viewport property as defined by the [[CSS Device Adaptation]] spec.</p>
+        
+      <section>
+        <h2>Examples</h2>
+        <p>An example using the Mozilla webapp manifest format:</p>
+        <div class="example"><p><pre><code>
+  {
+    "name": "MozillaBall",
+    "description": "Exciting Open Web development action!",
+    "default_locale": "en",
+    "orientation": "landscape"
+  }
+        </code></pre></p></div>
+        
+        <p>An example using [[WIDGETS]]:</p>
+        <div class="example">
+        <p><pre><code>
+&lt;widget xmlns="http://www.w3.org/ns/widgets"
+ 		id="http://wookie.apache.org/widgets/butterfly"
+ 		version="0.1"
+        width="420"
+        height="350"
+        orientation="auto"
+        &gt
+  &lt;name&gt;Butterfly&lt;/name&gt;
+  &lt;description&gt;Paint colourful butterflies!&lt;/description&gt;
+
+        </code></pre></p>
+        </div>
+      </section>
+    </section>
+    
+    <section>
+        <h2>Open issues and questions</h2>
+        <p>Is preferred starting orientation really a valid UC?</p>
+        <p>How to handle dynamic locking, as in games?</p>
+    </section>
+    
+    <section>
+        <h2>Use Cases</h2>
+        <p>Put the use cases here...</p>
+    <section>
+      
+    <section class='appendix'>
+      <h2>Acknowledgements</h2>
+      <p>
+        Many thanks to ...
+      </p>
+    </section>
+  </body>
+</html>
