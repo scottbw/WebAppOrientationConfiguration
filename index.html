@@ -3,7 +3,7 @@
   <head>
     <title>Web Application Orientation Configuration</title>
     <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
-    <script src='http://dev.w3.org/2009/dap/ReSpec.js/js/respec.js' class='remove'></script>
+    <script src='http://www.w3.org/Tools/respec/respec-w3c-common' class='remove' async></script>
     <script class='remove'>
       var respecConfig = {
           // document info
@@ -13,19 +13,21 @@
           copyrightStart:       "2012",
           previousPublishDate:  "2012-06-20",
           previousMaturity:     "unofficial",
-          // lcEnd: ...
-          extraCSS:             ["http://dev.w3.org/2009/dap/ReSpec.js/css/respec.css"],
-          inlineCSS:            true,
-          // editors
           editors:  [
               { name: "Scott Wilson",
                 company: "JISC", companyURL: "http://jisc.ac.uk/" }
           ],
+          edDraftURI:   "http://scottbw.github.com/WebAppOrientationConfiguration/index.html",
+
           // WG
           wg:           "Native Webapps Community Group",
           wgURI:        "http://www.w3.org/2008/webapps/",
           wgPublicList: "public-native-webapps",
           wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/42538/status",
+          copyrightStart: 2012,
+         noIDLIn:      true,
+         isRecTrack:   false,
+         isNoTrack:    true,
       };
 
       function hilight(r, content) {
@@ -38,22 +40,33 @@
     </script>
   </head>
   <body>
+  
+    <section id='sotd'>
+      <p>
+        Development of this document happens on <a href='https://github.com/scottbw/WebAppOrientationConfiguration'>GitHub</a>.
+        Please file <a href='https://github.com/scottbw/WebAppOrientationConfiguration/issues'>issues</a> and send
+        <a href='https://github.com/scottbw/WebAppOrientationConfiguration/pulls'>pull requests</a> directly on GitHub.
+      </p>
+    </section>
+  
     <section id='abstract'>
       This document specifies a configuration property to describe the preferred view orientations of web applications.
     </section>
-    
-        <div id="definitions" class="section">
-    
+        
     <section>
       <h2>Introduction</h2>
-      <p>A Web Application may only be designed to work in a specific orientation, or it may work in any orientation,
-    but the Web Application author would prefer the application to start using a specific orientation. A Web Application configuration 
-    document, for example a Widget configuration document or WebApp Manifest,  may use the orientation configuration property defined by
-    this specification to specify their preferred behaviour.
+      <p>A Web Application may only be designed to work in a specific orientation, and the author may choose to inhibit the auto-rotation of content to accommodate changes in the physical position of the device, also often referred to as orientation locking. Alternatively, a web application may work in any orientation,
+    but the author would prefer the application to start using a specific orientation when the application is first launched irrespective of the current orientation of the device. 
+    </p>
+    
+    <p>
+    Both of these cases can be realized in a declarative manner using a configuration document, for example a Widget configuration document or WebApp Manifest; in this case an author may use the orientation configuration property defined by this specification to specify the preferred behaviour.
       </p>
       
+      <p>Dynamic orientation locking, for example, in a game application only applying orientation locking during actual game play, is not in scope of this document.</p>
+      
       <p>
-        See also [[CSS Device Adaptation]] and CSS Media Queries [[MEDIAQ]]
+        See also [[CSS Device Adaptation]], CSS Media Queries [[MEDIAQ]], and Orientation Lock Use Cases and Requirements [[ ORIENTATIONLOCK-UCR ]]
       </p>
       </section>
       
@@ -87,14 +100,12 @@
           <em>Initial value:</em> <code>auto</code><br>
         </p>
         
-        <p>
-        A list denoting the orientations supported by the Web Application, in order of preferred starting orientation.</p>
+        <p>A list denoting the orientations supported by the Web Application, in order of preferred starting orientation.</p>
         
         <p>This property is used to request that a document is displayed in portrait or landscape mode. For a UA/device where 
         the orientation is changed upon tilting the device, an author can use this property to inhibit the orientation change.</p>
         
-         <p> The orientation configuration property accepts the following enumerated values: 
-        </p>
+        <p> The orientation configuration property accepts the following enumerated values:</p>
                 
         <dl>
         <dt><dfn>'<code>portrait</code>'</dfn></dt><dd> the Web Application should be locked to portrait presentation.</dd>
@@ -109,23 +120,24 @@
 
         </dl>
         
-        <p>Note: <em>portrait<em>, <em>landscape</em> and <em>auto</em> behave in the same fashion as the orientation viewport property as defined by the [[CSS Device Adaptation]] spec.</p>
+        <p>Note: <em>portrait</em>, <em>landscape</em> and <em>auto</em> behave in the same fashion as the orientation viewport property as defined by the [[CSS Device Adaptation]] spec.</p>
         
-      <section>
+    </section>
+    
+    <section>
         <h2>Examples</h2>
         <p>An example using the Mozilla webapp manifest format:</p>
-        <div class="example"><p><pre><code>
+        <pre class="example">
   {
     "name": "MozillaBall",
     "description": "Exciting Open Web development action!",
     "default_locale": "en",
     "orientation": "landscape"
   }
-        </code></pre></p></div>
+        </pre>
         
-        <p>An example using [[WIDGETS]]:</p>
-        <div class="example">
-        <p><pre><code>
+        <p>An example using W3C Widgets: Packaging and XML Configuration:</p>
+        <pre class="example">
 &lt;widget xmlns="http://www.w3.org/ns/widgets"
  		id="http://wookie.apache.org/widgets/butterfly"
  		version="0.1"
@@ -136,15 +148,13 @@
   &lt;name&gt;Butterfly&lt;/name&gt;
   &lt;description&gt;Paint colourful butterflies!&lt;/description&gt;
 
-        </code></pre></p>
-        </div>
-      </section>
+        </pre>
     </section>
     
     <section>
         <h2>Open issues and questions</h2>
-        <p>Is preferred starting orientation really a valid UC?</p>
-        <p>How to handle dynamic locking, as in games?</p>
+        <p class="issue">Is preferred starting orientation really a valid UC?</p>
+        <p class="issue">How to handle dynamic locking, as in games?</p>
     </section>
     
     <section>
